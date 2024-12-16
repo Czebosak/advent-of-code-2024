@@ -52,6 +52,16 @@ func parse_input() ([]int, []int, error) {
     return left_list, right_list, nil
 }
 
+func calculate_frequency_map(list []int) map[int]int {
+    frequency_map := make(map[int]int)
+    
+    for _, n := range list {
+        frequency_map[n]++
+    }
+    
+    return frequency_map
+}
+
 func main() {
     left_list, right_list, err := parse_input()
     if err != nil {
@@ -70,6 +80,15 @@ func main() {
         total_distance += distance
     }
 
-    fmt.Printf("%d\n", total_distance)
+    fmt.Println("Total distance:", total_distance)
+
+    frequency_map := calculate_frequency_map(right_list)
+    similarity := 0
+
+    for _, n := range left_list {
+        similarity += n * frequency_map[n]
+    }
+
+    fmt.Println("Similarity:", similarity)
 }
 
